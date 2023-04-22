@@ -8,8 +8,9 @@ use App\Models\Users\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use DB;
+//use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
+use DB;//←トランザクションを使えるようにするため
 
 use App\Models\Users\Subjects;
 
@@ -56,8 +57,8 @@ class RegisterController extends Controller
         $subjects = Subjects::all();
         return view('auth.register.register', compact('subjects'));
     }
-
-    public function registerPost(Request $request)
+    //引数をRequestからRegisterRequestに変更
+    public function registerPost(RegisterRequest $request)
     {
         DB::beginTransaction();
         try{
@@ -81,7 +82,7 @@ class RegisterController extends Controller
             ]);
             $user = User::findOrFail($user_get->id);
             $user->subjects()->attach($subjects);
-            DB::commit();
+            DB::commit();//ここに来るまでDBに反映されない
             return view('auth.login.login');
         }catch(\Exception $e){
             DB::rollback();
