@@ -17,23 +17,49 @@ class RegisterRequest extends FormRequest
     }
 
     /**
+     *  rules()の前に実行される
+     *       $this->merge(['key' => $value])を実行すると、
+     *       フォームで送信された(key, value)の他に任意の(key, value)の組み合わせをrules()に渡せる
+     */
+    public function getValidatorInstance(){
+        //プルダウンで選択された値を取得('フォームで送信されたkey','value')
+        // $datetime = $this->input(['old_year', 'old_month', 'old_day'], array());//valueのデフォは空の配列
+        //$datetime = ['old_year', 'old_month', 'old_day'];
+        $datetime = [
+            $this-> input('old_year'),
+            $this-> input('old_month'),
+            $this-> input('old_day')
+        ];
+
+        //日付を作成
+        $datetime_validation = implode('-', $datetime);
+
+        //rules()に渡す値をセット。→これによってこの場で作った変数にもバリデーションをかけることができる。
+        $this->merge(['datetime_validation' => $datetime_validation,]);
+
+        return parent::getValidatorInstance();
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
     public function rules()
     {
+        // dd($datetime_validation);
         return [
             'over_name' => 'required|string|max:10|',
             'under_name' => 'required|string|max:10|',
             'over_name_kana' => 'required|string|max:30|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
             'under_name_kana' => 'required|string|max:30|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
             'mail_address' => 'required|max:100|email|unique:users',
-            'sex' => 'required|',
-            'old_year' => 'required|after:1999',
-            'old_month' => 'required|present',
-            'old_day' => 'required|before:today',
-            'role' => 'required|',
+            'sex' => 'required|in:1,2,3',//1,2,3以外の値は認めないよの記述
+            // 'old_year' => 'required|after:1999',
+            // 'old_month' => 'required|present',
+            // 'old_day' => 'required|before:today',
+            'datetime_validation' => 'required|date|after:1999-12-31|before:today',
+            'role' => 'required|in:1,2,3,4',//1,2,3以外の値は認めないよの記述
             'password' => 'required|between:8,30|confirmed',
         ];
     }
@@ -65,14 +91,12 @@ class RegisterRequest extends FormRequest
             'mail_address.unique' => '登録済みのアドレスです',
             //性別
             'sex.required' => '入力は必須です',
-            //'sex' => '',
+            //'sex' => '1,2,3以外はだめだよの記述',
             //生年月日
-            'old_year.required' => '年の入力は必須です',
-            'old_year.after' => '2000年以降の日付にしてください',
-            'old_month.required' => '月の入力は必須です',
-            'old_month.present' => '今日までの日付で入力してください',
-            'old_day.required' => '日の入力は必須です',
-            'old_day.before' => '今日までの日付で入力してください',
+            'datetime_validation.required' => '入力は必須です',
+            'datetime_validation.after' => '2000年以降の日付にしてください',
+            'datetime_validation.before' => '今日までの日付で入力してください',
+            'datetime_validation.date' => '無効な日付です',
             //役割
             'role.required' => '入力は必須です',
             //パスワード
