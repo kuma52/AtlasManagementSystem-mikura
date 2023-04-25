@@ -15,12 +15,12 @@ Route::group(['middleware' => ['guest']], function(){
     Route::namespace('Auth')->group(function(){
         Route::get('/register', 'RegisterController@registerView')->name('registerView');
         Route::post('/register/post', 'RegisterController@registerPost')->name('registerPost');
-        Route::get('/login', 'LoginController@loginView')->name('loginView');
+        Route::get('/login', 'LoginController@loginView')->name('login');//nameをloginViewから変えました
         Route::post('/login/post', 'LoginController@loginPost')->name('loginPost');
     });
 });
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth']], function(){
     Route::namespace('Authenticated')->group(function(){
         Route::namespace('Top')->group(function(){
             Route::get('/logout', 'TopsController@logout');
