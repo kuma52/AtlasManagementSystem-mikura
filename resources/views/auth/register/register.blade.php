@@ -164,12 +164,6 @@
           @if($errors->first('datetime_validation'))
           <p class="error_message">{{ $errors->first('datetime_validation') }}</p>
           @endif
-          <!-- @if($errors->first('old_month'))
-          <p class="error_message">{{ $errors->first('old_month') }}</p>
-          @endif
-          @if($errors->first('old_day'))
-          <p class="error_message">{{ $errors->first('old_day') }}</p>
-          @endif -->
         </div>
         <div class="mt-3">
           <label class="d-block m-0" style="font-size:13px">役職</label>
