@@ -23,11 +23,6 @@ class RegisterRequest extends FormRequest
      */
     public function getValidatorInstance(){
         //プルダウンで選択された値を取得('フォームで送信されたkey','value')
-<<<<<<< HEAD
-=======
-        // $datetime = $this->input(['old_year', 'old_month', 'old_day'], array());//valueのデフォは空の配列
-        //$datetime = ['old_year', 'old_month', 'old_day'];
->>>>>>> 9b9db078cecdde18da6cc5b0609cb42a31ed0f46
         $datetime = [
             $this-> input('old_year'),
             $this-> input('old_month'),
@@ -61,11 +56,7 @@ class RegisterRequest extends FormRequest
             // 'old_year' => 'required|after:1999',
             // 'old_month' => 'required|present',
             // 'old_day' => 'required|before:today',
-<<<<<<< HEAD
             'datetime_validation' => 'required|date|after:1999-12-31|before:today',//インスタンスで作ったやつ
-=======
-            'datetime_validation' => 'required|date|after:1999-12-31|before:today',
->>>>>>> 9b9db078cecdde18da6cc5b0609cb42a31ed0f46
             'role' => 'required|in:1,2,3,4',//1,2,3以外の値は認めないよの記述
             'password' => 'required|between:8,30|confirmed',
         ];
@@ -101,21 +92,14 @@ class RegisterRequest extends FormRequest
 
             //性別
             'sex.required' => '入力は必須です',
-<<<<<<< HEAD
             'sex.in' => '無効な値です',
 
-=======
-            //'sex' => '1,2,3以外はだめだよの記述',
->>>>>>> 9b9db078cecdde18da6cc5b0609cb42a31ed0f46
             //生年月日
             'datetime_validation.required' => '入力は必須です',
             'datetime_validation.after' => '2000年以降の日付にしてください',
             'datetime_validation.before' => '今日までの日付で入力してください',
             'datetime_validation.date' => '無効な日付です',
-<<<<<<< HEAD
 
-=======
->>>>>>> 9b9db078cecdde18da6cc5b0609cb42a31ed0f46
             //役割
             'role.required' => '入力は必須です',
             'role.in' => '無効な値です',
