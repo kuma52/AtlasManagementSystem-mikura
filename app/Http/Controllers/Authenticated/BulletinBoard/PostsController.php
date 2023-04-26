@@ -38,6 +38,7 @@ class PostsController extends Controller
         return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
+    //投稿編集画面の表示
     public function postDetail($post_id){
         $post = Post::with('user', 'postComments')->findOrFail($post_id);
         return view('authenticated.bulletinboard.post_detail', compact('post'));
@@ -58,10 +59,14 @@ class PostsController extends Controller
         return redirect()->route('post.show');
     }
 
-    public function postEdit(Request $request){
+    //投稿編集機能
+    public function postEdit(PostFormRequest $request){//バリデーションかけるためにPostFormRequestにしてみた
+        //フォームの値を別々の変数で取得?
+        //$post_id = $request->post_id;
+        //アップデートする
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,
-            'post' => $request->post_body,
+            'post' => $request->post//post_idからかえた2か所
         ]);
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
