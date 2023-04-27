@@ -3,7 +3,7 @@
 @section('content')
 <div class="post_create_container d-flex">
   <div class="post_create_area border w-50 m-5 p-5">
-    <div class="">
+    <div class="wrapper">
       <p class="mb-0">カテゴリー</p>
       <select class="w-100" form="postCreate" name="post_category_id">
         @foreach($main_categories as $main_category)
@@ -13,6 +13,9 @@
         @endforeach
       </select>
     </div>
+
+
+
     <div class="mt-3">
       @if($errors->first('post_title'))
       <span class="error_message">{{ $errors->first('post_title') }}</span>
@@ -21,7 +24,7 @@
       <input type="text" class="w-100" form="postCreate" name="post_title" value="{{ old('post_title') }}">
     </div>
     <div class="mt-3">
-      @if($errors->first('post_body'))
+      @if($errors->first('post'))
       <span class="error_message">{{ $errors->first('post_body') }}</span>
       @endif
       <p class="mb-0">投稿内容</p>

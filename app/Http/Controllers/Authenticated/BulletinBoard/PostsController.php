@@ -61,13 +61,13 @@ class PostsController extends Controller
 
     //投稿編集機能
     public function postEdit(PostFormRequest $request){//バリデーションかけるためにPostFormRequestにしてみた
-        //フォームの値を別々の変数で取得?
-        //$post_id = $request->post_id;
+        // dd($request);
         //アップデートする
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,
-            'post' => $request->post//post_idからかえた2か所
+            'post' => $request->post_body,
         ]);
+
         return redirect()->route('post.detail', ['id' => $request->post_id]);
     }
 

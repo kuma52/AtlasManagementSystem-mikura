@@ -53,9 +53,6 @@ class RegisterRequest extends FormRequest
             'under_name_kana' => 'required|string|max:30|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
             'mail_address' => 'required|max:100|email|unique:users',
             'sex' => 'required|in:1,2,3',//1,2,3以外の値は認めないよの記述
-            // 'old_year' => 'required|after:1999',
-            // 'old_month' => 'required|present',
-            // 'old_day' => 'required|before:today',
             'datetime_validation' => 'required|date|after:1999-12-31|before:today',//インスタンスで作ったやつ
             'role' => 'required|in:1,2,3,4',//1,2,3以外の値は認めないよの記述
             'password' => 'required|between:8,30|confirmed',
