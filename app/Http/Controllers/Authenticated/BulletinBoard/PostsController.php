@@ -11,6 +11,7 @@ use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;//バリデーションを呼び出す
+use App\Http\Requests\BulletinBoard\CommentRequest;
 use Auth;
 
 class PostsController extends Controller
@@ -81,7 +82,8 @@ class PostsController extends Controller
         return redirect()->route('post.input');
     }
 
-    public function commentCreate(Request $request){
+    //コメント投稿
+    public function commentCreate(CommentRequest $request){
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),
