@@ -12,13 +12,16 @@ use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;//バリデーションを呼び出す
 use App\Http\Requests\BulletinBoard\CommentRequest;
+use App\Http\Requests\BulletinBoard\MainCategoryRequest;
+use App\Http\Requests\BulletinBoard\SubCategoryRequest;
 use Auth;
 
 class PostsController extends Controller
 {
     public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get();//,'commentCounts'
+        $posts = Post::with('user', 'postComments')->get();
         $categories = MainCategory::get();
+        // dd($categories);
         $like = new Like;
         // $like = Like::with('likeCounts')->get();
         $post_comment = new Post;
@@ -77,8 +80,20 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
-    public function mainCategoryCreate(Request $request){
+
+    //メインカテゴリを作る
+    public function mainCategoryCreate(MainCategoryRequest $request){
         MainCategory::create(['main_category' => $request->main_category_name]);
+        return redirect()->route('post.input');
+    }
+
+    //サブカテゴリを作る
+    public function subCategoryCreate(SubCategoryRequest $request){
+        $main_category_id = $request->main_category_id;
+        SubCategory::create([
+            'main_category_id' => $main_category_id,
+            'sub_category' => $request->sub_category_name
+        ]);
         return redirect()->route('post.input');
     }
 
@@ -114,7 +129,7 @@ class PostsController extends Controller
         $like->like_user_id = $user_id;
         $like->like_post_id = $post_id;
         $like->save();
-
+//非同期かな？
         return response()->json();
     }
 

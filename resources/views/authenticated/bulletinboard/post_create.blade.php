@@ -9,6 +9,7 @@
         @foreach($main_categories as $main_category)
         <optgroup label="{{ $main_category->main_category }}"></optgroup>
         <!-- サブカテゴリー表示 -->
+        <option value=""></option>
         </optgroup>
         @endforeach
       </select>
@@ -40,11 +41,35 @@
     <div class="category_area mt-5 p-5">
       <div class="">
         <p class="m-0">メインカテゴリー</p>
+        <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}
         <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
         <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest">
+        </form>
+        @if($errors->first('main_category_name'))
+          <span class="error_message">{{ $errors->first('main_category_name') }}</span>
+        @endif
       </div>
       <!-- サブカテゴリー追加 -->
-      <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}</form>
+      <div class="">
+        <p class="m-0">サブカテゴリー</p>
+        <form action="{{ route('sub.category.create') }}" method="post" id="subCategoryRequest">{{ csrf_field() }}
+        @foreach($main_categories as $main_category)
+            <select name="main_category_id[]" value="{{ $main_category->id }}">
+              <option value="none">-----</option>
+              <option value="{{ $main_category->id }}">{{ $main_category->main_category }}</option>
+            </select>
+          @endforeach
+        <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest">
+        <input type="hidden" name="main_category_id" value="{{ $main_category->id }}">
+        <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="subCategoryRequest">
+        </form>
+      </div>
+      @if($errors->first('main_category_id'))
+          <p class="error_message">{{ $errors->first('main_category_id') }}</p>
+      @endif
+      @if($errors->first('sub_category'))
+      <span class="error_message">{{ $errors->first('sub_category') }}</span>
+      @endif
     </div>
   </div>
   @endcan
