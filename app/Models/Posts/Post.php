@@ -23,6 +23,7 @@ class Post extends Model
         return $this->hasMany('App\Models\Posts\PostComment');
     }
 
+    //投稿のカテゴリ
     public function subCategories(){
         // リレーションの定義
         return $this->belongsToMany(
@@ -30,7 +31,7 @@ class Post extends Model
             'post_sub_categories',
             'post_id',
             'sub_category_id'
-        );
+        )->withPivot('id');
     }
 
     // コメント数

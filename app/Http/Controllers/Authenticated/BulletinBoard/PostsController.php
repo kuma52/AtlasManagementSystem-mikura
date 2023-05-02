@@ -98,10 +98,13 @@ class PostsController extends Controller
 
     //サブカテゴリを作る
     public function subCategoryCreate(SubCategoryRequest $request){
-        $main_category_id = $request->main_category_id;
         // dd($request);
+        $main_category_id = $request->main_category_id;
+
         SubCategory::create([
+            //カラム名 => 格納する値
             'main_category_id' => $main_category_id,
+            // 'main_category_id' => $main_category->id,
             'sub_category' => $request->sub_category_name
         ]);
         return redirect()->route('post.input');
