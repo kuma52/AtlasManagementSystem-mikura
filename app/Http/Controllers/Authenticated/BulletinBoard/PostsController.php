@@ -63,6 +63,7 @@ class PostsController extends Controller
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
+
         $category = PostSubCategories::create([
             // 'post_id' => Post::get('id'),
             'post_id' => $post->id,

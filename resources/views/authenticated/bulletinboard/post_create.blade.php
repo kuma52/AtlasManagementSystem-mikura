@@ -12,7 +12,7 @@
         <optgroup label="{{ $main_category->main_category }}">
           @foreach($main_category->subCategories as $sub_category)
           <!-- サブカテゴリー表示 -->
-            <option value="{{ $sub_category->sub_category }}">{{ $sub_category->sub_category }}</option>
+            <option value="{{ $sub_category->id }}">{{ $sub_category->sub_category }}</option>
             <!-- </optgroup> -->
           @endforeach
         </optgroup>
@@ -22,7 +22,6 @@
         @endforeach
       </select>
     </div>
-
     <div class="mt-3">
       @if($errors->first('post_title'))
       <span class="error_message">{{ $errors->first('post_title') }}</span>
