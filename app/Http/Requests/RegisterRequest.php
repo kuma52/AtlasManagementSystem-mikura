@@ -54,7 +54,7 @@ class RegisterRequest extends FormRequest
             'mail_address' => 'required|max:100|email|unique:users',
             'sex' => 'required|in:1,2,3',//1,2,3以外の値は認めないよの記述
             'datetime_validation' => 'required|date|after:1999-12-31|before:today',//インスタンスで作ったやつ
-            'role' => 'required|in:1,2,3,4',//1,2,3以外の値は認めないよの記述
+            'role' => 'required|in:1,2,3,4',//1,2,3,4以外の値は認めないよの記述
             'password' => 'required|between:8,30|confirmed',
         ];
     }

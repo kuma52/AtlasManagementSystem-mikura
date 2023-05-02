@@ -42,34 +42,43 @@
       <div class="">
         <p class="m-0">メインカテゴリー</p>
         <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}
-        <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
+        <input type="text" class="w-100" name="main_category" form="mainCategoryRequest">
         <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest">
         </form>
-        @if($errors->first('main_category_name'))
-          <span class="error_message">{{ $errors->first('main_category_name') }}</span>
+        @if($errors->first('main_category'))
+          <span class="error_message">{{ $errors->first('main_category') }}</span>
         @endif
       </div>
       <!-- サブカテゴリー追加 -->
       <div class="">
         <p class="m-0">サブカテゴリー</p>
         <form action="{{ route('sub.category.create') }}" method="post" id="subCategoryRequest">{{ csrf_field() }}
-        @foreach($main_categories as $main_category)
-            <select name="main_category_id[]" value="{{ $main_category->id }}">
+            <select name="main_category_id[]" form="subCategoryRequest">
               <option value="none">-----</option>
+              @foreach($main_categories as $main_category)
               <option value="{{ $main_category->id }}">{{ $main_category->main_category }}</option>
+              @endforeach
             </select>
-          @endforeach
         <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest">
-        <input type="hidden" name="main_category_id" value="{{ $main_category->id }}">
+        <!-- <input type="hidden" name="main_category_id" value="{{ $main_category->id }}"> -->
         <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="subCategoryRequest">
         </form>
       </div>
-      @if($errors->first('main_category_id'))
+      <!-- @if($errors->first('main_category_id'))
           <p class="error_message">{{ $errors->first('main_category_id') }}</p>
-      @endif
-      @if($errors->first('sub_category'))
+      @endif -->
+      <!-- @if($errors->first('sub_category'))
       <span class="error_message">{{ $errors->first('sub_category') }}</span>
-      @endif
+      @endif -->
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     </div>
   </div>
   @endcan

@@ -83,7 +83,7 @@ class PostsController extends Controller
 
     //メインカテゴリを作る
     public function mainCategoryCreate(MainCategoryRequest $request){
-        MainCategory::create(['main_category' => $request->main_category_name]);
+        MainCategory::create(['main_category' => $request->main_category]);
         return redirect()->route('post.input');
     }
 

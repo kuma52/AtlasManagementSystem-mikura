@@ -25,9 +25,9 @@ class SubCategoryRequest extends FormRequest
     {
         return [
             //
-            'sub_category' => 'required|max:100|string|unique:sub_categories,sub_category',
             'main_category_id' => 'required|exists:main_categories,id',
             //exists:テーブル名,カラム名→テーブル名に登録されているカラム名の値か
+            'sub_category' => 'required|max:100|string|unique:sub_categories,sub_category',
         ];
     }
 
