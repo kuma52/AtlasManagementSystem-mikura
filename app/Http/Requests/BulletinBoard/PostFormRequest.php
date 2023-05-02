@@ -24,7 +24,7 @@ class PostFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //'post_category_id' => 'required|',//「登録されているサブカテゴリ―か」
+            'post_category_id' => 'required|exists:sub_categories,id',//「登録されているサブカテゴリ―か」=サブカテゴリ―テーブルに実在するid
             'post_title' => 'required|string|max:100|',
             'post_body' => 'required|string|max:500|',
         ];
@@ -32,6 +32,9 @@ class PostFormRequest extends FormRequest
 
     public function messages(){
         return [
+            //カテゴリ
+            'post_category_id.required' => 'カテゴリは必須項目です',
+            'post_category_id.exists' => '無効なカテゴリの値です',
             //タイトル
             'post_title.required' => 'タイトルは必須項目です',
             'post_title.string' => 'タイトルの入力内容が無効です',

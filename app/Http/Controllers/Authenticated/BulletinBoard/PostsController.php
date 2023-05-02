@@ -58,18 +58,19 @@ class PostsController extends Controller
 
     //投稿
     public function postCreate(PostFormRequest $request){
+
+        //postテーブルに値を送信
         $post = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
 
+        //中間テーブルPostSubCategoriesに送信する
         $category = PostSubCategories::create([
-            // 'post_id' => Post::get('id'),
             'post_id' => $post->id,
             'sub_category_id' => $request->post_category_id,
         ]);
-        // $sub_category_id = $request->input('')
 
         return redirect()->route('post.show');
     }
