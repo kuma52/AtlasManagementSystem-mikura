@@ -60,7 +60,6 @@
               @endforeach
             </select>
         <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest">
-        <!-- <input type="hidden" name="main_category_id" value="{{ $main_category->id }}"> -->
         <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="subCategoryRequest">
         </form>
       </div>

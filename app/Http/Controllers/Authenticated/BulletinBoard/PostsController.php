@@ -20,10 +20,10 @@ class PostsController extends Controller
 {
     public function show(Request $request){
         $posts = Post::with('user', 'postComments')->get();
-        $categories = MainCategory::get();
-        // dd($categories);
+        // $categories = MainCategory::get();
+        $categories = MainCategory::with('subCategories')->get();
+        $sub_categories = SubCategory::get();//足した
         $like = new Like;
-        // $like = Like::with('likeCounts')->get();
         $post_comment = new Post;
         if(!empty($request->keyword)){
             $posts = Post::with('user', 'postComments')
@@ -40,7 +40,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'sub_categories', 'like', 'post_comment'));
     }
 
     //投稿編集画面の表示
@@ -129,8 +129,8 @@ class PostsController extends Controller
         $like->like_user_id = $user_id;
         $like->like_post_id = $post_id;
         $like->save();
-//非同期かな？
-        return response()->json();
+
+        return response()->json();//非同期かな？
     }
 
     public function postUnLike(Request $request){
