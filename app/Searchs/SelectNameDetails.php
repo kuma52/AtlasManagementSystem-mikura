@@ -17,8 +17,9 @@ class SelectNameDetails implements DisplayUsers{
     }else{
       $role = array($role);
     }
-    $users = User::with('subjects')
+    $users = User::with('subjects')//subjectsと関係性のあるUserのデータを取得
     ->where(function($q) use ($keyword){
+      //where(カラム名, 演算子, カラムの値と比較する値)
       $q->Where('over_name', 'like', '%'.$keyword.'%')
       ->orWhere('under_name', 'like', '%'.$keyword.'%')
       ->orWhere('over_name_kana', 'like', '%'.$keyword.'%')
@@ -29,7 +30,7 @@ class SelectNameDetails implements DisplayUsers{
       ->whereIn('role', $role);
     })
     ->whereHas('subjects', function($q) use ($subjects){
-      $q->where('subjects.id', $subjects);
+      $q->whereIn('subjects.id', $subjects);
     })
     ->orderBy('over_name_kana', $updown)->get();
     return $users;
