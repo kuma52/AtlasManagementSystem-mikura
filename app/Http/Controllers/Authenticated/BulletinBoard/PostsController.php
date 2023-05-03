@@ -30,9 +30,16 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
             ->orWhere('post', 'like', '%'.$request->keyword.'%')->get();
+
         }else if($request->category_word){
+            //subcategoriesテーブル（←中間テーブル）から、sub_categoryカラムが●●の時のpost_idカラムの値を取り出してきたい
+            // dd($request);
             $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            $posts = Post::with('user', 'postComments')
+            ->whereHas('SubCategories', function ($query) use ($sub_category) {
+                $query->where('sub_category', $sub_category);
+            })->get();
+
         }else if($request->like_posts){
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
@@ -101,13 +108,10 @@ class PostsController extends Controller
     //サブカテゴリを作る
     public function subCategoryCreate(SubCategoryRequest $request){
         // dd($request);
-        $main_category_id = $request->main_category_id;
-
         SubCategory::create([
             //カラム名 => 格納する値
-            'main_category_id' => $main_category_id,
-            // 'main_category_id' => $main_category->id,
-            'sub_category' => $request->sub_category_name
+            'main_category_id' => $request->main_category_id,
+            'sub_category' => $request->sub_category
         ]);
         return redirect()->route('post.input');
     }
