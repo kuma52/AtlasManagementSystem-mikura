@@ -16,19 +16,9 @@ class CalendarWeekDay{
     return "day-" . strtolower($this->carbon->format("D"));
   }
 
-  function isPast() {
-    return $this->carbon->isPast();
-  }
-
     function pastClassName(){
     return "past-day";
   }
-  // function pastClassName(){
-  //   if($this->carbon->isPast()){
-  //   return "past-day";
-  //   }
-  //   return "";
-  // }
 
   /**
    * @return

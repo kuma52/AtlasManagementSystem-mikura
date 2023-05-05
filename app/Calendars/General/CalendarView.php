@@ -12,7 +12,6 @@ class CalendarView{
   private $carbon;
   function __construct($date){
     $this->carbon = new Carbon($date);
-    $now = Carbon::now();//今の日時を取得する
   }
 
   public function getTitle(){
@@ -43,14 +42,14 @@ class CalendarView{
       foreach($days as $day){
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
+        // $day = Carbon::now();//今の日時を取得する
 
         if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
-          $html[] = '<td class="calendar-td">';
-        }elseif($day->isPast()){
           $html[] = '<td class="calendar-td '.$day->pastClassName().'">';
+          // $html[] = '<p class="day ''">';
         }else{
           $html[] = '<td class="calendar-td '.$day->getClassName().'">';
-        }
+        };
         $html[] = $day->render();
 
         if(in_array($day->everyDay(), $day->authReserveDay())){
