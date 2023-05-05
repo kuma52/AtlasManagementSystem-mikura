@@ -3,12 +3,16 @@ namespace App\Calendars\General;
 
 use Carbon\Carbon;
 use Auth;
+use App\Calendars\General\CalendarWeek;//足した下記2行とともに
+use App\Calendars\General\CalendarWeekBlankDay;
+use App\Calendars\General\CalendarWeekDay;
 
 class CalendarView{
 
   private $carbon;
   function __construct($date){
     $this->carbon = new Carbon($date);
+    $now = Carbon::now();//今の日時を取得する
   }
 
   public function getTitle(){
@@ -42,6 +46,8 @@ class CalendarView{
 
         if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
           $html[] = '<td class="calendar-td">';
+        }elseif($day->isPast()){
+          $html[] = '<td class="calendar-td '.$day->pastClassName().'">';
         }else{
           $html[] = '<td class="calendar-td '.$day->getClassName().'">';
         }
