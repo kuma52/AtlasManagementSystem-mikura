@@ -42,11 +42,9 @@ class CalendarView{
       foreach($days as $day){
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
-        // $day = Carbon::now();//今の日時を取得する
 
         if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
           $html[] = '<td class="calendar-td '.$day->pastClassName().'">';
-          // $html[] = '<p class="day ''">';
         }else{
           $html[] = '<td class="calendar-td '.$day->getClassName().'">';
         };
@@ -65,8 +63,8 @@ class CalendarView{
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px"></p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
-            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            $html[] = '<button type="submit" class="modal-open btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" data-bs-target="#cancelModal" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
+            $html[] = '<input type="hidden" name="getPart[]" value="" form="deleteParts">';
           }
         }else{
           $html[] = $day->selectPart($day->everyDay());
@@ -80,7 +78,21 @@ class CalendarView{
     $html[] = '</table>';
     $html[] = '</div>';
     $html[] = '<form action="/reserve/calendar" method="post" id="reserveParts">'.csrf_field().'</form>';
+
+    // 予約キャンセルのモーダル
+    $html[] = '<div class="modal" id="cancelModal">';
+    $html[] = '<div class="modal__bg"></div>';
+    $html[] = '<div class="modal__content">';
+    $html[] = '<p>ファサードとかでモーダルに引っ張った日時を表示</p>';
+    $html[] = '<p class=".modal-part"></p>';
+    $html[] = '<p>上記の予約をキャンセルしてもよろしいですか？</p>';
+    $html[] = '<input type="hidden" name="id" value="" form="deleteParts">';
+    $html[] = '<form action="/delete/calendar" form="deleteParts" method="post"></form>';
+    $html[] = '<button class="modal-close btn btn-primary p-0 w-75">閉じる</button>';
+    $html[] = '<button class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" form="deleteParts">キャンセル</button>';
+    // $html[] = '';
     $html[] = '<form action="/delete/calendar" method="post" id="deleteParts">'.csrf_field().'</form>';
+    $html[] = '</div>';
 
     return implode('', $html);
   }
