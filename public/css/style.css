@@ -55,14 +55,14 @@ li {
   background: #EEE;
 }
 
-.past-day select {
+/* .past-day select {
   display: none;
-}
+} */
 
-.past-day::after {
+/* .past-day::after {
   content: "受付終了";
   font-size: small;
-}
+} */
 
 .calendar-td {
   min-width: 100px;
