@@ -65,7 +65,9 @@ class CalendarView{
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{//未来
             $html[] = '<button type="submit" class="modal-open btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" data-bs-target="#cancelModal" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
+            //modalに送る情報
             $html[] = '<input type="hidden" name="getPart[]" value="" form="deleteParts">';
+            //予約してる日の数もreservePartsの配列の一部としてほしいから↓の記述必要
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
         }else{//予約していない場合

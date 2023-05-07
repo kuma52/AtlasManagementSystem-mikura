@@ -41,11 +41,18 @@ class CalendarsController extends Controller
     public function delete(Request $request){
         dd($request);
         DB::biginTransaction();
-        try{
+        // try{
             $getPart = $request->getPart;
             $getDate = $request->getData;
+            $reserveDays = array_filter(array_combine($getDate, $getPart));
 
-        }
+            $reserve_settings->increment('limit_users');
+            $reserve_settings->users()->dettach(Auth::id());
+            // }
+            DB::commit();
+        // }catch(\Exception $e){
+            DB::rollback();
+        // }
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
 }
