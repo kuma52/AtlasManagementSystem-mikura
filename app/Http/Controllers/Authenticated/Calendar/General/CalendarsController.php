@@ -39,19 +39,16 @@ class CalendarsController extends Controller
 
 
     public function delete(Request $request){
-        dd($request);
-        DB::biginTransaction();
-        $int_part = $request->int_part;
-        $user_id = Auth::id();
-        // try{
-
-            $reserve_settings->increment('limit_users');
-            $reserve_settings->users()->dettach(Auth::id());
-            // }
-            DB::commit();
-        // }catch(\Exception $e){
-            DB::rollback();
-        // }
+        // ddd($request);
+        //受け取った値を変数に代入
+        $setting_part = $request->int_part;
+        $setting_reserve = $request->int_day;
+        //reserve_settingsテーブルから、$setting_partと$setting_reserveが一致するレコードを一つ検索
+        $reserve_settings = ReserveSettings::where('setting_part', $setting_part)->where('setting_reserve', $setting_reserve)->first();
+        //制限人数を1増やす
+        $reserve_settings->increment('limit_users');
+        //$reserve_settingsのusersリレーションに対してdetachメソッドを呼び出してレコードを削除
+        $reserve_settings->users()->detach(Auth::id());
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
 }

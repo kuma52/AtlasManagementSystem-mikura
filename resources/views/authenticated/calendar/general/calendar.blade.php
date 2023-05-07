@@ -25,7 +25,7 @@
           <div>予約日：<span class="modal-day"></span></div>
           <div>時間：<span class="modal-string-part"></span></div>
           <p>上記の予約をキャンセルしてもよろしいですか？</p>
-          <input type="hidden" name="id" class="modal-id" value="" form="deleteParts">
+          <input type="hidden" name="int_day" class="modal-int-day" value="" form="deleteParts">
           <input type="hidden" name="int_part" class="modal-int-part" value="" form="deleteParts">
           <form action="/delete/calendar" form="deleteParts" method="post"></form>
           <button class="modal-close btn btn-primary p-0 w-75">閉じる</button>
