@@ -3,9 +3,9 @@ namespace App\Calendars\General;
 
 use Carbon\Carbon;
 use Auth;
-use App\Calendars\General\CalendarWeek;//足した下記2行とともに
-use App\Calendars\General\CalendarWeekBlankDay;
-use App\Calendars\General\CalendarWeekDay;
+// use App\Calendars\General\CalendarWeek;//足した下記2行とともに
+// use App\Calendars\General\CalendarWeekBlankDay;
+// use App\Calendars\General\CalendarWeekDay;
 
 class CalendarView{
 
@@ -64,9 +64,17 @@ class CalendarView{
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">'. $reservePart .'参加</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{//未来
-            $html[] = '<button type="submit" class="modal-open btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" data-bs-target="#cancelModal" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
-            //modalに送る情報
-            $html[] = '<input type="hidden" name="getPart[]" value="" form="deleteParts">';
+            //modalに送る情報入り。ごちゃごちゃで何をしてるのかよくわからないな…
+            $html[] = '<button
+             type="submit"
+             class="modal-open btn btn-danger p-0 w-75"
+             style="font-size:12px"
+             data-bs-target="#cancelModal"
+             value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'"
+             string_part="'. $reservePart .'"
+             int_part="'.$day->authReserveDate($day->everyDay())->first()->setting_part.'"
+             id=""
+             >'. $reservePart .'</button>';
             //予約してる日の数もreservePartsの配列の一部としてほしいから↓の記述必要
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
@@ -88,18 +96,8 @@ class CalendarView{
     $html[] = '</div>';
     $html[] = '<form action="/reserve/calendar" method="post" id="reserveParts">'.csrf_field().'</form>';
 
-    // 予約キャンセルのモーダル->calenderViewだと見づらい書きづらいからcalendar.bladeに書く
-    // $html[] = '<div class="modal" id="cancelModal">';
-    // $html[] = '<div class="modal__bg"></div>';
-    // $html[] = '<div class="modal__content">';
-    // $html[] = '<p>ファサードとかでモーダルに引っ張った日時を表示</p>';
-    // $html[] = '<p class=".modal-part"></p>';
-    // $html[] = '<p>上記の予約をキャンセルしてもよろしいですか？</p>';
-    // $html[] = '<input type="hidden" name="id" value="" form="deleteParts">';
-    // $html[] = '<form action="/delete/calendar" form="deleteParts" method="post"></form>';
-    // $html[] = '<button class="modal-close btn btn-primary p-0 w-75">閉じる</button>';
-    // $html[] = '<button class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" form="deleteParts">キャンセル</button>';
-    // // $html[] = '';
+    // 予約キャンセルのモーダル中身はここにも書ける。
+    //でもcalenderViewだと見づらい書きづらいからcalendar.bladeに書く
     $html[] = '<form action="/delete/calendar" method="post" id="deleteParts">'.csrf_field().'</form>';
     $html[] = '</div>';
 

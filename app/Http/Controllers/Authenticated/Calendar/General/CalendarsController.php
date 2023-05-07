@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Calendars\General\CalendarView;
 use App\Models\Calendars\ReserveSettings;
-use App\Models\Calendars\Calendar;
+use App\Models\Calendars\Calendar;//どこにある？
 use App\Models\USers\User;
 use Auth;
 use DB;
@@ -41,10 +41,9 @@ class CalendarsController extends Controller
     public function delete(Request $request){
         dd($request);
         DB::biginTransaction();
+        $int_part = $request->int_part;
+        $user_id = Auth::id();
         // try{
-            $getPart = $request->getPart;
-            $getDate = $request->getData;
-            $reserveDays = array_filter(array_combine($getDate, $getPart));
 
             $reserve_settings->increment('limit_users');
             $reserve_settings->users()->dettach(Auth::id());

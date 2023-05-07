@@ -21,7 +21,6 @@ class PostsController extends Controller
 {
     public function show(Request $request){
         $posts = Post::with('user', 'postComments')->get();
-        // $categories = MainCategory::get();
         $categories = MainCategory::with('subCategories')->get();
         $sub_categories = SubCategory::get();//足した
         $like = new Like;
