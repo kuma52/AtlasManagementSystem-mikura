@@ -66,10 +66,12 @@ class CalendarView{
           }else{//未来
             $html[] = '<button type="submit" class="modal-open btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" data-bs-target="#cancelModal" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="deleteParts">';
+            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
         }else{//予約していない場合
           if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){//過去
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }else{//未来
           $html[] = $day->selectPart($day->everyDay());
           }

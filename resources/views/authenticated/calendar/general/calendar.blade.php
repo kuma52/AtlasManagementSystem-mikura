@@ -8,6 +8,7 @@
       <p class="text-center">{{ $calendar->getTitle() }}</p>
       <div class="">
         {!! $calendar->render() !!}
+        <!-- CalendarView.phpに記述のコードが呼び出される -->
       </div>
     </div>
     <div class="text-right w-75 m-auto">
@@ -17,7 +18,8 @@
 </div>
 
 <!-- モーダル中身 -->
-<!-- <div class="modal" id="cancelModal">
+<!-- calendarViewにも書けるけどbladeのほうが煩雑にならないからこっちに書く -->
+<div class="modal" id="cancelModal">
   <div class="modal__bg"></div>
   <div class="modal__content">
           <p>ファサードとかでモーダルに引っ張った日時を表示</p>
@@ -28,6 +30,6 @@
           <button class="modal-close btn btn-primary p-0 w-75">閉じる</button>
           <button class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" form="deleteParts">キャンセル</button>
   </div>
-</div> -->
+</div>
 
 @endsection

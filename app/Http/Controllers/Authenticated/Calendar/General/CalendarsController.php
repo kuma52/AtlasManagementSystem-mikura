@@ -20,6 +20,7 @@ class CalendarsController extends Controller
 
     public function reserve(Request $request){
         DB::beginTransaction();
+        // dd($request);
         try{
             $getPart = $request->getPart;
             $getDate = $request->getData;
@@ -37,8 +38,14 @@ class CalendarsController extends Controller
     }
 
 
-    public function delete($id){
-        ReserveSettings::where('id', $id)->delete();
+    public function delete(Request $request){
+        dd($request);
+        DB::biginTransaction();
+        try{
+            $getPart = $request->getPart;
+            $getDate = $request->getData;
+
+        }
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
 }

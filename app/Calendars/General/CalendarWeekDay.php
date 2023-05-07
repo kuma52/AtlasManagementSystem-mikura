@@ -28,6 +28,10 @@ class CalendarWeekDay{
      return '<p class="day">' . $this->carbon->format("j"). '日</p>';
    }
 
+  //  function getParts(){
+  //    return
+  //  }
+
    function selectPart($ymd){
      $one_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '1')->first();
      $two_part_frame = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
