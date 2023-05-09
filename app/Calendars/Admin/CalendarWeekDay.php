@@ -41,12 +41,22 @@ class CalendarWeekDay{
       $html[] = '<div><a href="'.$url.'" class="day_part m-0 pt-1" id="" data="" part="'.$one_part.'">1部</a><span>　　'.$count.'</span></div>';
     }
     if($two_part){
+      $url = route('calendar.admin.detail',[
+        'id' => Auth::id(),
+        'data' => $ymd,
+        'part' => '2'
+      ]);
       $count = $two_part->users->count();
-      $html[] = '<div><a href="/calendar/{id}/{data}/{part?}" class="day_part m-0 pt-1">2部</a><span>　　'.$count.'</span></div>';
+      $html[] = '<div><a href="'.$url.'" class="day_part m-0 pt-1">2部</a><span>　　'.$count.'</span></div>';
     }
     if($three_part){
+      $url = route('calendar.admin.detail',[
+        'id' => Auth::id(),
+        'data' => $ymd,
+        'part' => '3'
+      ]);
       $count = $three_part->users->count();
-      $html[] = '<div><a href="/calendar/{id}/{data}/{part?}" class="day_part m-0 pt-1">3部</a><span>　　'.$count.'</span></div>';
+      $html[] = '<div><a href="'.$url.'" class="day_part m-0 pt-1">3部</a><span>　　'.$count.'</span></div>';
     }
     $html[] = '</div>';
 

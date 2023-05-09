@@ -22,7 +22,9 @@ class CalendarsController extends Controller
     public function reserveDetail($user_id = 0, $date = 0, $part = 0){
         //↑($user_id = 0, $date, $part)だったけど、windowsはこれだとエラー出るので、($user_id = 0, $date = 0, $part = 0)にした（山崎さん指示により）
         //この「= 0」というのは初期値で、この関数を呼び出す際に、必ずしも$user_id、$date、$partの値が指定されなくてもよいようにするため
-        $user = User::with('reserveSettings')->find($user_id);//足してみた
+        $user_id = Auth::id();
+        $date = data;
+        $part = part;
         $reservePersons = ReserveSettings::with('users')->where('setting_reserve', $date)->where('setting_part', $part)->get();
         return view('authenticated.calendar.admin.reserve_detail', compact('reservePersons', 'date', 'part'));
     }

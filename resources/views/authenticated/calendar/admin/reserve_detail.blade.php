@@ -4,7 +4,7 @@
 <div class="vh-100 d-flex" style="align-items:center; justify-content:center;">
   <div class="w-50 m-auto h-75">
     <!-- foreach($reservePersons as $reservePerson) -->
-    <p><span>日</span><span class="ml-3">部</span></p>
+    <p><span>{{ $date }}日</span><span class="ml-3">{{ $part }}部</span></p>
     <!-- endforeach -->
     <div class="h-75 border">
       <table class="">
