@@ -39,7 +39,6 @@ class CalendarsController extends Controller
 
 
     public function delete(Request $request){
-        // ddd($request);
         //受け取った値を変数に代入
         $setting_part = $request->int_part;
         $setting_reserve = $request->int_day;
