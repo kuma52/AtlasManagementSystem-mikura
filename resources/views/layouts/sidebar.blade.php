@@ -19,15 +19,67 @@
   <div class="d-flex">
     <div class="sidebar">
       @section('sidebar')
-      <p><a href="{{ route('top.show') }}">トップ</a></p>
-      <p><a href="/logout">ログアウト</a></p>
-      <p><a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">スクール予約</a></p>
+      <p>
+        <a href="{{ route('top.show') }}">
+          <span class="i-wrapper">
+            <i class="fas fa-home"></i>
+            <i class="fas fa-chimney"></i>
+          </span>
+        <span class="item">トップ</span>
+        </a>
+      </p>
+      <p>
+        <a href="/logout">
+          <span class="i-wrapper">
+            <i class="fas fa-door-open"></i>
+          </span>
+          <span class="item">ログアウト</span>
+        </a>
+      </p>
+      <p>
+        <a href="{{ route('calendar.general.show',['user_id' => Auth::id()]) }}">
+          <span class="i-wrapper">
+            <i class="fas fa-calendar-alt"></i>
+          </span>
+          <span class="item">スクール予約</span>
+        </a>
+      </p>
+
       @if(in_array(auth()->user()->role, ['1','2','3']))
-        <p><a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">スクール予約確認</a></p>
-        <p><a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">スクール枠登録</a></p>
+        <p>
+          <a href="{{ route('calendar.admin.show',['user_id' => Auth::id()]) }}">
+            <span class="i-wrapper">
+              <i class="fas fa-calendar-check"></i>
+            </span>
+            <span class="item">スクール予約確認</span>
+          </a>
+        </p>
+        <p>
+          <a href="{{ route('calendar.admin.setting',['user_id' => Auth::id()]) }}">
+            <span class="i-wrapper">
+              <i class="far fa-calendar-plus"></i>
+            </span>
+            <span class="item">スクール枠登録</span>
+          </a>
+        </p>
       @endif
-      <p><a href="{{ route('post.show') }}">掲示板</a></p>
-      <p><a href="{{ route('user.show') }}">ユーザー検索</a></p>
+
+      <p>
+        <a href="{{ route('post.show') }}">
+          <span class="i-wrapper">
+            <i class="far fa-comment"></i>
+          </span>
+          <span class="item">掲示板</span>
+        </a>
+      </p>
+      <p>
+        <a href="{{ route('user.show') }}">
+          <span class="i-wrapper">
+            <i class="fas fa-users"></i>
+          </span>
+          <span class="item">ユーザー検索</span>
+        </a>
+      </p>
       @show
     </div>
     <div class="main-container">

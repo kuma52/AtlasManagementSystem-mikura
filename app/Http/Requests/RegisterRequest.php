@@ -62,48 +62,48 @@ class RegisterRequest extends FormRequest
     public function messages(){
         return [
             //苗字
-            'over_name.required' => '入力は必須です',
-            'over_name.string' => '無効な入力です',
+            'over_name.required' => '姓の入力は必須です',
+            'over_name.string' => '姓が無効な入力です',
             'over_name.max' => '姓は10文字以内で入力してください',
             //名前
-            'under_name.required' => '入力は必須です',
-            'under_name.string' => '無効な入力です',
-            'under_name.max' => '名は10文字以内で入力してください',
+            'under_name.required' => '名前の入力は必須です',
+            'under_name.string' => '名前が無効な入力です',
+            'under_name.max' => '名前は10文字以内で入力してください',
             //ミョウジ
-            'over_name_kana.required' => '入力は必須です',
-            'over_name_kana.string' => '無効な入力です',
+            'over_name_kana.required' => 'セイの入力は必須です',
+            'over_name_kana.string' => 'セイが無効な入力です',
             'over_name_kana.max' => 'セイは30文字以内で入力してください',
-            'over_name_kana.regex' => 'カタカナで入力ください',
+            'over_name_kana.regex' => 'セイはカタカナで入力ください',
 
             //ナマエ
-            'under_name_kana.required' => '入力は必須です',
-            'under_name_kana.string' => '無効な入力です',
+            'under_name_kana.required' => 'メイの入力は必須です',
+            'under_name_kana.string' => 'メイが無効な入力です',
             'under_name_kana.max' => 'メイは30文字以内で入力してください',
-            'under_name_kana.regex' => 'カタカナで入力ください',
+            'under_name_kana.regex' => 'メイはカタカナで入力ください',
 
             //address
-            'mail_address.required' => '入力は必須です',
-            'mail_address.max' => '100文字以内で入力してください',
-            'mail_address.email' => '形式が無効です',
-            'mail_address.unique' => '登録済みのアドレスです',
+            'mail_address.required' => 'メールアドレスの入力は必須です',
+            'mail_address.max' => 'メールアドレスは100文字以内で入力してください',
+            'mail_address.email' => 'メールアドレスの形式が無効です',
+            'mail_address.unique' => '登録済みのメールアドレスです',
 
             //性別
-            'sex.required' => '入力は必須です',
-            'sex.in' => '無効な値です',
+            'sex.required' => '性別の入力は必須です',
+            'sex.in' => '性別が無効な値です',
 
             //生年月日
-            'datetime_validation.required' => '入力は必須です',
+            'datetime_validation.required' => '生年月日の入力は必須です',
             'datetime_validation.after' => '2000年以降の日付にしてください',
             'datetime_validation.before' => '今日までの日付で入力してください',
             'datetime_validation.date' => '無効な日付です',
 
             //役割
-            'role.required' => '入力は必須です',
-            'role.in' => '無効な値です',
+            'role.required' => '役職の入力は必須です',
+            'role.in' => '役職が無効な値です',
 
             //パスワード
-            'password.required' => '入力は必須です',
-            'password.between' => '8~30文字にしてください',
+            'password.required' => 'パスワードの入力は必須です',
+            'password.between' => 'パスワードは8~30文字にしてください',
             'password.confirmed' => 'パスワードと確認用が一致しません',
         ];
     }

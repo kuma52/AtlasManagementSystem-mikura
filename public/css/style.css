@@ -16,20 +16,68 @@ li {
   list-style: none;
 }
 
+.error_message {
+  border: #FF0000 solid 2px;
+  padding: 3px 5px;
+}
+
+/* ログインページ */
+.logo {
+  width: 200px;
+  position: absolute;
+  top: 150px;
+}
+
+h2 {
+  text-align: center;
+}
+
+#login .border {
+  border-radius: 5%;
+}
+
+/* ユーザー登録ページ */
+#register .border {
+  border-radius: 15px;
+}
+
+
+
 /* サイドバー */
 .sidebar {
-  width: 150px;
+  width: 250px;
   height: 100vh;
+  padding-top: 19px;
   background-color: #03AAD2;
   font-weight: bold;
+  color: #FFF;
 }
 
 .main-container {
   width: 100%;
 }
 
+.i-wrapper {
+  width: 13px;
+  /* height: 10px; */
+  display: inline-flex;
+}
+
+/* .fa-door-open {
+  padding-right: 3px;
+} */
+
+.sidebar p {
+  margin-left: 10px;
+  padding: 3px 0;
+}
+
 .sidebar p a {
   color: #FFF;
+}
+
+.item {
+  padding-left: 10px;
 }
 
 /* トップページ */
@@ -54,15 +102,6 @@ li {
 .past-day {
   background: #EEE;
 }
-
-/* .past-day select {
-  display: none;
-} */
-
-/* .past-day::after {
-  content: "受付終了";
-  font-size: small;
-} */
 
 .calendar-td {
   min-width: 100px;
