@@ -53,6 +53,7 @@ class PostsController extends Controller
     //投稿編集画面の表示
     public function postDetail($post_id){
         $post = Post::with('user', 'postComments')->findOrFail($post_id);
+        // dd($post);
         return view('authenticated.bulletinboard.post_detail', compact('post'));
     }
 

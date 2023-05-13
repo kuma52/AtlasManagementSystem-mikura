@@ -25,25 +25,29 @@
     </div>
     @endforeach
   </div>
-  <div class="other_area border w-25">
-    <div class="border m-4">
-      <div class=""><a href="{{ route('post.input') }}">投稿</a></div>
-      <div class="">
-        <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
-        <input type="submit" value="検索" form="postSearchRequest">
+
+
+<!-- 右側のいろいろボード -->
+  <div class="other_area w-25">
+    <div class="m-4">
+      <div class="btn "><a href="{{ route('post.input') }}">投稿</a></div>
+      <div class="keyword_area">
+        <input class="keyword" type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
+        <input class="keyword_btn" type="submit" value="検索" form="postSearchRequest">
       </div>
-      <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
-      <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
+      <div class="btn_wrapper">
+        <input type="submit" name="like_posts" class="category_btn good" value="いいねした投稿" form="postSearchRequest">
+        <input type="submit" name="my_posts" class="category_btn mine" value="自分の投稿" form="postSearchRequest">
+      </div>
       <ul>
         @foreach($categories as $category)
         <li class="main_categories" category_id="{{ $category->id }}">
-          <span>{{ $category->main_category }}</span>
+          <span>{{ $category->main_category }}<span class=" arrow"></span></span>
+<span class="line"></span>
               @foreach($category->subCategories as $sub_category)
-                <ul>
-                  <li>
-                    <input type="submit" name="category_word" class="category_btn" value="{{ $sub_category->sub_category }}" data-category_id="{{ $sub_category->id }}" form="postSearchRequest">
-                  </li>
-                </ul>
+                  <p class="category_num{{ $sub_category->main_category_id }}">
+                    <input type="submit" name="category_word" value="{{ $sub_category->sub_category }}" data-category_id="{{ $sub_category->id }}" form="postSearchRequest">
+                  </p>
               @endforeach
         </li>
         @endforeach
