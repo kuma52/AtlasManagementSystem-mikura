@@ -14,10 +14,11 @@ class CalendarView{
     return $this->carbon->format('Y年n月');
   }
 
+  // ここからviewに継承されている部分
   public function render(){
     $html = [];
     $html[] = '<div class="calendar text-center">';
-    $html[] = '<table class="table m-auto border">';
+    $html[] = '<table class="table m-auto border w-75 pt-5 pb-5">';
     $html[] = '<thead>';
     $html[] = '<tr>';
     $html[] = '<th class="border">月</th>';
@@ -39,8 +40,10 @@ class CalendarView{
       foreach($days as $day){
         $startDay = $this->carbon->format("Y-m-01");
         $toDay = $this->carbon->format("Y-m-d");
-        if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
+
+        if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){//過去
           $html[] = '<td class="past-day border">';
+          // $html[] = $day->dayPartCounts($day->everyDay());
         }else{
           $html[] = '<td class="border '.$day->getClassName().'">';
         }

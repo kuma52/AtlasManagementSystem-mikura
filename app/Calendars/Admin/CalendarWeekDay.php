@@ -30,36 +30,43 @@ class CalendarWeekDay{
     $two_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '2')->first();
     $three_part = ReserveSettings::with('users')->where('setting_reserve', $ymd)->where('setting_part', '3')->first();
 
-    $html[] = '<div class="text-left">';
-    if($one_part){
-      $url = route('calendar.admin.detail',[
-        'id' => Auth::id(),
-        'data' => $ymd,
-        'part' => '1'
-      ]);
-      $count = $one_part->users->count();
-      $html[] = '<div><a href="'.$url.'" class="day_part m-0 pt-1" id="" data="" part="'.$one_part.'">1部</a><span>　　'.$count.'</span></div>';
-    }
-    if($two_part){
-      $url = route('calendar.admin.detail',[
-        'id' => Auth::id(),
-        'data' => $ymd,
-        'part' => '2'
-      ]);
-      $count = $two_part->users->count();
-      $html[] = '<div><a href="'.$url.'" class="day_part m-0 pt-1">2部</a><span>　　'.$count.'</span></div>';
-    }
-    if($three_part){
-      $url = route('calendar.admin.detail',[
-        'id' => Auth::id(),
-        'data' => $ymd,
-        'part' => '3'
-      ]);
-      $count = $three_part->users->count();
-      $html[] = '<div><a href="'.$url.'" class="day_part m-0 pt-1">3部</a><span>　　'.$count.'</span></div>';
-    }
-    $html[] = '</div>';
-
+    $html[] = '<div class="text-left reserve_calendar">';
+        if($one_part){
+          $url = route('calendar.admin.detail',[
+            'id' => Auth::id(),
+            'data' => $ymd,
+            'part' => '1'
+          ]);
+          $count = $one_part->users->count();
+          $html[] = '<div>
+                      <a href="'.$url.'" class="day_part m-0 pt-1">1部</a>
+                      <span class="text-body">　　'.$count.'</span>
+                    </div>';
+        }
+        if($two_part){
+          $url = route('calendar.admin.detail',[
+            'id' => Auth::id(),
+            'data' => $ymd,
+            'part' => '2'
+          ]);
+          $count = $two_part->users->count();
+          $html[] = '<div>
+                      <a href="'.$url.'" class="day_part m-0 pt-1">2部</a>
+                      <span class="text-body">　　'.$count.'</span>
+                    </div>';
+        }
+        if($three_part){
+          $url = route('calendar.admin.detail',[
+            'id' => Auth::id(),
+            'data' => $ymd,
+            'part' => '3'
+          ]);
+          $count = $three_part->users->count();
+          $html[] = '<div>
+                      <a href="'.$url.'" class="day_part m-0 pt-1">3部</a>
+                      <span class="text-body">　　'.$count.'</span>
+                    </div>';
+        }
     return implode("", $html);
   }
 

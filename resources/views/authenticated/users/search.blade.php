@@ -1,49 +1,49 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<p>ユーザー検索</p>
-<div class="search_content w-100 border d-flex">
+<div class="search_content w-100 d-flex">
   <div class="reserve_users_area">
     @foreach($users as $user)
-    <div class="border one_person">
+    <div class="border one_person shadow">
       <div>
-        <span>ID : </span><span>{{ $user->id }}</span>
+        <span class="text-muted">ID : </span><span class="font-weight-bold">{{ $user->id }}</span>
       </div>
-      <div><span>名前 : </span>
+      <div>
+        <span class="text-muted">名前 : </span>
         <a href="{{ route('user.profile', ['id' => $user->id]) }}">
-          <span>{{ $user->over_name }}</span>
-          <span>{{ $user->under_name }}</span>
+          <span class="font-weight-bold">{{ $user->over_name }}</span>
+          <span class="font-weight-bold text-primary">{{ $user->under_name }}</span>
         </a>
       </div>
       <div>
-        <span>カナ : </span>
-        <span>({{ $user->over_name_kana }}</span>
-        <span>{{ $user->under_name_kana }})</span>
+        <span class="text-muted">カナ : </span>
+        <span class="font-weight-bold">({{ $user->over_name_kana }}</span>
+        <span class="font-weight-bold">{{ $user->under_name_kana }})</span>
       </div>
       <div>
         @if($user->sex == 1)
-        <span>性別 : </span><span>男</span>
+        <span class="text-muted">性別 : </span><span class="font-weight-bold">男</span>
         @else
-        <span>性別 : </span><span>女</span>
+        <span class="text-muted">性別 : </span><span class="font-weight-bold">女</span>
         @endif
       </div>
       <div>
-        <span>生年月日 : </span><span>{{ $user->birth_day }}</span>
+        <span class="text-muted">生年月日 : </span><span class="font-weight-bold">{{ $user->birth_day }}</span>
       </div>
       <div>
         @if($user->role == 1)
-        <span>権限 : </span><span>教師(国語)</span>
+        <span class="text-muted">権限 : </span><span class="font-weight-bold">教師(国語)</span>
         @elseif($user->role == 2)
-        <span>権限 : </span><span>教師(数学)</span>
+        <span class="text-muted">権限 : </span><span class="font-weight-bold">教師(数学)</span>
         @elseif($user->role == 3)
-        <span>権限 : </span><span>講師(英語)</span>
+        <span class="text-muted">権限 : </span><span class="font-weight-bold">講師(英語)</span>
         @else
-        <span>権限 : </span><span>生徒</span>
+        <span class="text-muted">権限 : </span><span class="font-weight-bold">生徒</span>
         @endif
       </div>
       <div>
         @if($user->role == 4)
-        <span>選択科目 :
+        <span class="text-muted">選択科目 :
           @foreach($user->subjects as $subject)
             {{ $subject->subject }}
         @endforeach
@@ -55,36 +55,40 @@
   </div>
 
   <!-- 検索ボード -->
-  <div class="search_area w-25 border">
+  <div class="search_area w-25 mt-5 ml-3">
     <div class="">
       <div>
-        <input type="text" class="free_word" name="keyword" placeholder="キーワードを検索" form="userSearchRequest">
+        <p>検索</p>
+        <input type="text" class="free_word user_search" name="keyword" placeholder="キーワードを検索" form="userSearchRequest">
       </div>
-      <div>
+      <div class="mt-3">
         <lavel>カテゴリ</lavel>
-        <select form="userSearchRequest" name="category">
+        <select class="user_search d-block pointer" form="userSearchRequest" name="category">
           <option value="name">名前</option>
           <option value="id">社員ID</option>
         </select>
       </div>
       <div>
-        <label>並び替え</label>
-        <select name="updown" form="userSearchRequest">
+        <label class="mt-3">並び替え</label>
+        <select class="user_search d-block w-70 pointer" name="updown" form="userSearchRequest">
           <option value="ASC">昇順</option>
           <option value="DESC">降順</option>
         </select>
       </div>
-      <div class="">
-        <p class="m-0 search_conditions"><span>検索条件の追加</span></p>
+
+      <div class="mt-3">
+        <p class="m-0 search_conditions line"><span>検索条件の追加</span><span class="arrow"></span></p>
         <div class="search_conditions_inner">
           <div>
-            <label>性別</label>
-            <span>男</span><input type="radio" name="sex" value="1" form="userSearchRequest">
-            <span>女</span><input type="radio" name="sex" value="2" form="userSearchRequest">
+            <label class="mb-0">性別</label>
+            <div>
+              <span>男</span><input type="radio" name="sex" value="1" form="userSearchRequest">
+              <span>女</span><input type="radio" name="sex" value="2" form="userSearchRequest">
+            </div>
           </div>
           <div>
-            <label>権限</label>
-            <select name="role" form="userSearchRequest" class="engineer">
+            <label class="mt-3 mb-0">権限</label>
+            <select name="role" form="userSearchRequest" class="engineer user_search d-block">
               <option selected disabled>----</option>
               <option value="1">教師(国語)</option>
               <option value="2">教師(数学)</option>
@@ -93,22 +97,22 @@
             </select>
           </div>
           <div class="selected_engineer">
-            <label>選択科目</label>
-            @foreach($subjects as $subject)
-              <div class="">
-                <input type="checkbox" name="subject[]" value="{{ $subject->id }}" form="userSearchRequest">
-                  <label>{{ $subject->subject }}</label>
+            <label class="mt-3 mb-1">選択科目</label>
+            <div class="d-flex mb-4">
+              @foreach($subjects as $subject)
+                <input type="checkbox" name="subject[]" value="{{ $subject->id }}" form="userSearchRequest"  class="margin">
+                  <label class="mb-0">{{ $subject->subject }}</label>
                 </input>
+              @endforeach
               </div>
-            @endforeach
           </div>
         </div>
       </div>
-      <div>
-        <input type="reset" value="リセット" form="userSearchRequest">
+      <div class="search_btn_wrapper">
+        <input type="submit" class="btn search_btn" name="search_btn" value="検索" form="userSearchRequest">
       </div>
-      <div>
-        <input type="submit" name="search_btn" value="検索" form="userSearchRequest">
+      <div class="w-200 reset mt-2">
+        <input type="reset" value="リセット" form="userSearchRequest" class="btn ">
       </div>
     </div>
     <form action="{{ route('user.show') }}" method="get" id="userSearchRequest" form="userSearchRequest"></form>

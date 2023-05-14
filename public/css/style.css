@@ -19,6 +19,8 @@ li {
 .error_message {
   border: #FF0000 solid 2px;
   padding: 3px 5px;
+  font-size: 12px;
+  color: red;
 }
 
 /* ログインページ */
@@ -165,8 +167,13 @@ h2 {
   white-space: pre-wrap;
 }
 
+.name {
+  color: #5d5d5d;
+}
+
 .detail_container {
   background: #FFF;
+  border-radius: 10px;
 }
 
 .post_area {
@@ -174,8 +181,25 @@ h2 {
   border-radius: 10px;
 }
 
+/* .post_area .title {
+  font-weight: bold;
+  color: #212529;
+} */
+
+.post_area .title a {
+  font-weight: bold;
+  color: #212529;
+}
+
 .post_bottom_area {
   justify-content: space-between;
+}
+
+.sub_category_icon {
+  background-color: #03AAD2;
+  border-radius: 7px;
+  color: #fff;
+  padding: 3px 7px;
 }
 
 .like_btn,
@@ -188,20 +212,19 @@ h2 {
   color: #E2254D;
 }
 
-.error_message {
-  font-size: 12px;
-  color: red;
-}
+
 
 /* 掲示板 詳細画面 */
 .contributor {
   font-size: 12px;
   color: #999;
   font-weight: bold;
+  padding-top: 7px;
 }
 
 .detsail_post_title {
   font-size: 14px;
+  font-weight: bold;
 }
 
 .detsail_post {
@@ -230,6 +253,7 @@ h2 {
 /* 掲示板 コメント */
 .comment_container {
   background: #FFF;
+  border-radius: 10px;
 }
 
 .comment_area p,
@@ -277,6 +301,10 @@ h2 {
 .sub_categories li input {
   list-style: none;
   cursor: pointer;
+}
+
+.main_categories {
+  padding-bottom: 10px;
 }
 
 .other_area {
@@ -339,11 +367,19 @@ h2 {
   background-color: #e17397;
 }
 
-.category_num {
+.hidden {
   display: none;
 }
 
-.arrow {
+.category {
+  width: 100%;
+  display: inline-block;
+}
+
+
+.arrow,
+.search_conditions .arrow,
+.subject_edit_area .arrow {
   display: inline-block;
   position: relative;
   width: 1em;
@@ -353,30 +389,67 @@ h2 {
   margin-bottom: 4px;
 }
 
-.arrow::before {
+.arrow::before,
+.search_conditions .arrow::before,
+.subject_edit_area .arrow::before {
   content: '';
   position: absolute;
   width: 0.7em;
   height: 0.7em;
-  border-left: 2px solid #d1d1d1;
-  border-bottom: 2px solid #d1d1d1;
+  border-left: 2px solid #5d5d5d;
+  border-bottom: 2px solid #5d5d5d;
   transition: transform 0.2s;
   top: 10%;
-  left: 28%;
-  transform: rotate(-45deg) skew(-15deg, -15deg);
+  transform: rotate(-45deg);
+}
+
+.arrow::before {
+  right: -1200%;
+}
+
+.active::before,
+.search_conditions .active::before,
+.subject_edit_area .active::before {
+  top: 40%;
+  transform: rotate(135deg);
 }
 
 .active::before {
-  top: 40%;
-  left: 28%;
-  transform: rotate(135deg) skew(-15deg, -15deg);
+  right: -1200%;
+}
+
+.sub_categories_wrapper {
+  padding-left: 20px;
+}
+
+.line::after,
+.short_line::after {
+  content: "";
+  display: inline-block;
+  border-bottom: solid 1px #b4b4b4;
+  width: 100%;
+  position: relative;
 }
 
 .line::after {
-  content: "";
-  border-bottom: solid 1px #d1d1d1;
   width: 100%;
+  top: -15px;
 }
+
+.short_line::after {
+  width: 80%;
+  left: -40px;
+  bottom: -5px;
+}
+
+.category_word {
+  background: none;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+
 
 
 /* ユーザー検索 */
@@ -386,9 +459,8 @@ h2 {
   width: 800px;
   margin: 10px auto;
   height: 80vh;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 10px;
-  background: #FFF;
   border-radius: 5px;
 }
 
@@ -397,25 +469,160 @@ h2 {
 }
 
 .one_person {
-  width: 250px;
-  height: 250px;
+  width: 237px;
+  height: 237px;
+  background-color: #fff;
+  margin: 5px;
+  padding: 20px;
+  border-radius: 7px;
+}
+
+.one_person div {
+  padding-bottom: 5px;
+}
+
+.search_conditions {
+  width: 200px;
+}
+
+.search_conditions .arrow::before {
+  right: -400%;
+}
+
+.search_conditions .active::before {
+  right: -400%;
 }
 
 .search_conditions span {
   cursor: pointer;
 }
 
+.search_area {
+  width: 203px;
+}
+
+.free_word {
+  width: 200px;
+}
+
+.user_search {
+  background: #d7e1e4;
+  color: #222222;
+  border: none;
+  height: 33px;
+  border-radius: 7px;
+}
+
+.w-70 {
+  width: 70px;
+}
+
+.w-200 {
+  width: 200px;
+}
+
+.margin {
+  margin: 0 10px;
+}
+
 .search_conditions_inner {
   display: none;
-  background: #FFF;
+}
+
+.search_btn_wrapper {
+  background-color: #03AAD2;
+  width: 200px;
+  border-radius: 7px;
+}
+
+.search_btn_wrapper .search_btn {
+  color: #fff;
+  padding-left: 40%;
+}
+
+.search_btn_wrapper .search_btn:hover {
+  color: #fff;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.reset {
+  padding-left: 23%;
+}
+
+.reset input {
+  color: #03AAD2;
 }
 
 .subject_edit_btn {
   font-size: 12px;
-  color: #0000FF;
+  color: #03aad2;
   cursor: pointer;
 }
 
 .subject_inner {
   display: none;
+}
+
+/* ユーザープロフィール */
+.subject_edit_area .arrow::before {
+  right: -20%;
+  border-left: 2px solid #03AAD2;
+  border-bottom: 2px solid #03AAD2;
+}
+
+.subject_edit_area .active::before {
+  right: -20%;
+}
+
+.reserve_setting_calendar {
+  background-color: #fff;
+}
+
+/* 予約確認画面 */
+.reserve_calendar a {
+  color: #03AAD2;
+}
+
+.reserve_check {
+  background-color: #fff;
+  border-radius: 7px;
+}
+
+/* 予約詳細画面 */
+.bg-w {
+  background-color: #fff;
+}
+
+.br-7 {
+  border-radius: 7px;
+}
+
+.reserve_detail {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.reserve_detail th,
+.reserve_detail td {
+  height: 40px;
+  width: calc(100% / 3);
+  /* 3列あるので、横幅を1/3に設定 */
+}
+
+.shadow .reserve_detail tr:nth-child(1) {
+  background-color: #03AAD2;
+  color: #fff;
+  font-weight: bold;
+  height: 35px;
+}
+
+.reserve_detail tr:nth-child(odd) {
+  background-color: #c8dfe4;
+}
+
+.reserve_detail tr:nth-child(even) {
+  background-color: #fff;
 }

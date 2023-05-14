@@ -6,17 +6,14 @@
       <div class="p-3">
         <div class="detail_inner_head">
           <div>
-            @if($errors->first('post_title'))
-              <p class="error_message">{{ $errors->first('post_title') }}</p>
-            @endif
-            @if($errors->first('post_body'))
-              <p class="error_message">{{ $errors->first('post_body') }}</p>
-            @endif
+            @foreach($post->subCategories as $sub_category)
+              <span class="sub_category_icon">{{ $sub_category->sub_category }}</span>
+            @endforeach
           </div>
           @if($post->user_id == Auth::user()->id)
           <div>
-            <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('この投稿を削除します。よろしいですか？')">削除</a>
+            <span class="edit-modal-open btn btn-primary" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
+            <a href="{{ route('post.delete', ['id' => $post->id]) }}" class="btn btn-danger" onclick="return confirm('この投稿を削除します。よろしいですか？')">削除</a>
           </div>
           @endif
         </div>
@@ -29,8 +26,16 @@
           </p>
           <span class="ml-5">{{ $post->created_at }}</span>
         </div>
-        <div class="detsail_post_title">{{ $post->post_title }}</div>
-        <div class="mt-3 detsail_post">{{ $post->post }}</div>
+        <div class="detsail_post_title">
+          @if($errors->first('post_title'))
+            <div class="error_message">{{ $errors->first('post_title') }}</div>
+          @endif
+        {{ $post->post_title }}</div>
+        <div class="mt-3 detsail_post">
+          @if($errors->first('post_body'))
+          <div class="error_message">{{ $errors->first('post_body') }}</div>
+          @endif
+        {{ $post->post }}</div>
       </div>
       <div class="p-3">
         <div class="comment_container">
@@ -49,13 +54,13 @@
     </div>
   </div>
   <div class="w-50 p-3">
-    <div class="comment_container border m-5">
+    <div class="comment_container m-5">
       <div class="comment_area p-3">
+        @if($errors->first('comment'))
+          <span class="error_message">{{ $errors->first('comment') }}</span>
+        @endif
         <p class="m-0">コメントする</p>
         <textarea class="w-100" name="comment" form="commentRequest" value="{{ old('comment') }}"></textarea>
-        @if($errors->first('comment'))
-              <p class="error_message">{{ $errors->first('comment') }}</p>
-            @endif
         <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">
         <input type="submit" class="btn btn-primary" form="commentRequest" value="投稿">
         <form action="{{ route('comment.create') }}" method="post" id="commentRequest">{{ csrf_field() }}</form>
