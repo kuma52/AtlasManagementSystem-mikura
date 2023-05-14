@@ -2,17 +2,17 @@
 
 @section('content')
 <div class="vh-100 pt-5" style="background:#ECF1F6;">
-  <div class="border w-75 m-auto pt-5 pb-5" style="border-radius:5px; background:#FFF;">
-    <div class="w-75 m-auto border" style="border-radius:5px;">
+  <div class="w-75 m-auto p-3 shadow" style="border-radius:5px; background:#FFF;">
+    <div class="w-auto m-auto" style="border-radius:5px;">
 
       <p class="text-center">{{ $calendar->getTitle() }}</p>
-      <div class="">
+      <div class="border mb-3">
         {!! $calendar->render() !!}
         <!-- CalendarView.phpに記述のコードが呼び出される -->
       </div>
-    </div>
-    <div class="text-right w-75 m-auto">
-      <input type="submit" class="btn btn-primary" value="予約する" form="reserveParts">
+      <div class="text-right w-75 m-auto mt-1">
+        <input type="submit" class="btn btn-primary" value="予約する" form="reserveParts">
+      </div>
     </div>
   </div>
 </div>
@@ -28,8 +28,10 @@
           <input type="hidden" name="int_day" class="modal-int-day" value="" form="deleteParts">
           <input type="hidden" name="int_part" class="modal-int-part" value="" form="deleteParts">
           <form action="/delete/calendar" form="deleteParts" method="post"></form>
-          <button class="modal-close btn btn-primary p-0 w-75">閉じる</button>
-          <button class="btn btn-danger p-0 w-75" style="font-size:12px" form="deleteParts">キャンセル</button>
+          <div class="d-flex justify-content-around">
+            <button class="modal-close btn btn-primary p-1 w-25">閉じる</button>
+            <button class="btn btn-danger p-1 w-25" style="font-size:12px" form="deleteParts">キャンセル</button>
+          </div>
   </div>
 </div>
 
