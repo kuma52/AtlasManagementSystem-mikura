@@ -7,23 +7,23 @@ $(function () {
   });
 
   $(document).on('click', '.like_btn', function (e) {
-    e.preventDefault();
-    $(this).addClass('un_like_btn');
+    e.preventDefault();//デフォルトアクションをキャンセル（=クリックによるリンクの遷移を防ぐ）
+    $(this).addClass('un_like_btn');//thisはクリックされた要素 にun_like_btnを付ける
     $(this).removeClass('like_btn');
-    var post_id = $(this).attr('post_id');
-    var count = $('.like_counts' + post_id).text();
+    var post_id = $(this).attr('post_id');//クリックされた要素のpost_id属性を取得する
+    var count = $('.like_counts' + post_id).text();//text()は要素のテキストコンテンツを取得するメソッド => like_countsクラスを持つ要素のテキストコンテンツがcount変数に代入される
     var countInt = Number(count);
-    $.ajax({
-      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-      method: "post",
-      url: "/like/post/" + post_id,
-      data: {
+    $.ajax({//Ajaxリクエストを行なっていくよー
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },//リクエストヘッダーに追加する情報を指定
+      method: "post",//HTTPメソッドを指定
+      url: "/like/post/" + post_id,//リクエスト先のURLを指定
+      data: {//リクエストデータを指定
         post_id: $(this).attr('post_id'),
       },
-    }).done(function (res) {
+    }).done(function (res) {//Ajaxリクエストが成功したときのコールバック関数 引数のresはサーバーからのレスポンスデータ
       console.log(res);
       $('.like_counts' + post_id).text(countInt + 1);
-    }).fail(function (res) {
+    }).fail(function (res) {//Ajaxリクエストが失敗したとき resの中身はエラー情報
       console.log('fail');
     });
   });
